@@ -1,15 +1,20 @@
 import React from "react";
+import { BrowserRouter } from "react-router-dom"
 import logo from "./logo.svg";
 import * as Tone from "tone";
 import "./App.css";
-import Pedalboard from "./components/board/Pedalboard";
+import Views from "./components/Views"
+import SideBar from "./components/sidebar/Sidebar";
+import Header from "./components/header/Header"
 
 function App() {
-  
-
   return (
     <div className="App">
-      <Pedalboard />
+      <BrowserRouter>
+      <Header />
+      <SideBar />
+      <Views />
+      </BrowserRouter>
     </div>
   );
 }
