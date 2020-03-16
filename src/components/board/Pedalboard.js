@@ -4,7 +4,7 @@ import Delay from "../pedals/delay/Delay";
 import Chorus from "../pedals/chorus/Chorus"
 
 const Pedalboard = () => {
-  const sourceInput = new Tone.UserMedia([3])
+  const sourceInput = new Tone.UserMedia([0])
   const [selectedPedal, setSelectedPedal] = useState("");
   const [pedals, setPedals] = useState([]);
 
@@ -33,7 +33,7 @@ const Pedalboard = () => {
       </select>
       <button onClick={addPedalToChain}>Add to Chain</button>
       <button onClick={routeToMaster}>Route To Master</button>
-      {pedals.map((Component, index) => <Component isLast={index===pedals.length - 1}signal={sourceInput} key={index}/>)}
+      {pedals.map((Component, index) => <Component isLast={index===pedals.length - 1} signal={sourceInput} key={index}/>)}
     </>
   );
 };
