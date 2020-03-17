@@ -28,11 +28,14 @@ const Delay = ({ signal, isLast }) => {
 
   return (
     <>
+
       <h2>Delay</h2>
       <label>
         <input
-          type="number"
+          type="range"
           step=".01"
+          min="0"
+          max="1.5"
           value={delayParams.delayTime}
           onChange={event =>
             setDelayParams({ ...delayParams, delayTime: event.target.value })
@@ -42,8 +45,10 @@ const Delay = ({ signal, isLast }) => {
       </label>
       <label>
         <input
-          type="number"
+          type="range"
           step=".01"
+          min="0"
+          max="1"
           value={delayParams.wet}
           onChange={event =>
             setDelayParams({ ...delayParams, wet: event.target.value })
@@ -53,8 +58,10 @@ const Delay = ({ signal, isLast }) => {
       </label>
       <label>
         <input
-          type="number"
+          type="range"
           step=".01"
+          min="0"
+          max="1"
           value={delayParams.feedback}
           onChange={event =>
             setDelayParams({ ...delayParams, feedback: event.target.value })

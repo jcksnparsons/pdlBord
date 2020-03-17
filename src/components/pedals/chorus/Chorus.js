@@ -22,7 +22,7 @@ const Chorus = ({ signal, isLast }) => {
       }
   }, [isLast])
 
-  /* useEffect(() => {
+ /*  useEffect(() => {
     chorus.frequency.value = chorusParams.frequency;
     chorus.delayTime.value = chorusParams.delayTime;
     chorus.depth.value = chorusParams.depth;
@@ -35,8 +35,9 @@ const Chorus = ({ signal, isLast }) => {
       <h2>Chorus</h2>
       <label>
         <input
-          type="number"
+          type="range"
           step=".01"
+          min="0"
           value={chorusParams.frequency}
           onChange={event =>
             setChorusParams({ ...chorusParams, frequency: event.target.value })
@@ -46,8 +47,10 @@ const Chorus = ({ signal, isLast }) => {
       </label>
       <label>
         <input
-          type="number"
+          type="range"
           step=".01"
+          min="2"
+          max="20"
           value={chorusParams.delayTime}
           onChange={event =>
             setChorusParams({ ...chorusParams, delayTime: event.target.value })
@@ -57,8 +60,10 @@ const Chorus = ({ signal, isLast }) => {
       </label>
       <label>
         <input
-          type="number"
+          type="range"
           step=".01"
+          min="0"
+          max="1"
           value={chorusParams.depth}
           onChange={event =>
             setChorusParams({ ...chorusParams, depth: event.target.value })
