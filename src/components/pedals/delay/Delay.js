@@ -35,7 +35,7 @@ const Delay = ({ signal, isLast }) => {
           type="range"
           step=".01"
           min="0"
-          max="1.5"
+          max="1"
           value={delayParams.delayTime}
           onChange={event =>
             setDelayParams({ ...delayParams, delayTime: event.target.value })

@@ -17,16 +17,17 @@ const Chorus = ({ signal, isLast }) => {
   );
 
   useEffect(() => {
-      if (isLast) {
-          chorus.toMaster()
-      }
-  }, [isLast])
+    if (isLast) {
+      chorus.toMaster();
+    }
+  }, [isLast]);
 
- /*  useEffect(() => {
+  useEffect(() => {
+    console.log(chorus)
     chorus.frequency.value = chorusParams.frequency;
-    chorus.delayTime.value = chorusParams.delayTime;
-    chorus.depth.value = chorusParams.depth;
-  }, [chorusParams]); */
+    chorus.delayTime = chorusParams.delayTime;
+    chorus.depth = chorusParams.depth;
+  }, [chorusParams]);
 
   signal.chain(chorus);
 
@@ -38,6 +39,7 @@ const Chorus = ({ signal, isLast }) => {
           type="range"
           step=".01"
           min="0"
+          max="5"
           value={chorusParams.frequency}
           onChange={event =>
             setChorusParams({ ...chorusParams, frequency: event.target.value })
