@@ -25,6 +25,10 @@ const Pedalboard = () => {
       sourceInput.toMaster()
   }
 
+  const saveSettings = array => {
+    console.log(array)
+  }
+
   return (
     <>
       <button onClick={() => sourceInput.open()}>Connect to Input</button>
@@ -36,8 +40,10 @@ const Pedalboard = () => {
       </select>
       <button onClick={addPedalToChain}>Add to Chain</button>
       <button onClick={routeToMaster}>Route To Master</button>
-      <button onClick={() => pedals.forEach(pedal => console.log(pedal))}>Console log pedals</button>
       {pedals.map((Component, index) => <Component isLast={index===pedals.length - 1} signal={sourceInput} key={index}/>)}
+      <div>
+      <button onClick={() => saveSettings(pedals)}>Save preset</button>
+      </div>
     </>
   );
 };
