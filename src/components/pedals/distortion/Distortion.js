@@ -20,9 +20,10 @@ const Distortion = ({ signal, isLast }) => {
     }
   }, [isLast]);
 
-/*   useEffect(() => {
-    distortion.distortion.value = distortionParams.value;
-  }, [distortionParams]); */
+  useEffect(() => {
+    distortion.distortion = distortionParams.distortion;
+    distortion.oversample = distortionParams.oversample;
+  }, [distortionParams]);
 
   signal.chain(distortion);
 
