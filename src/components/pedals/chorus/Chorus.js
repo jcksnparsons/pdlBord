@@ -23,7 +23,6 @@ const Chorus = ({ signal, isLast }) => {
   }, [isLast]);
 
   useEffect(() => {
-    console.log(chorus)
     chorus.frequency.value = chorusParams.frequency;
     chorus.delayTime = chorusParams.delayTime;
     chorus.depth = chorusParams.depth;

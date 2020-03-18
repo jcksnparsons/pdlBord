@@ -36,6 +36,7 @@ const Pedalboard = () => {
       </select>
       <button onClick={addPedalToChain}>Add to Chain</button>
       <button onClick={routeToMaster}>Route To Master</button>
+      <button onClick={() => pedals.forEach(pedal => console.log(pedal))}>Console log pedals</button>
       {pedals.map((Component, index) => <Component isLast={index===pedals.length - 1} signal={sourceInput} key={index}/>)}
     </>
   );
