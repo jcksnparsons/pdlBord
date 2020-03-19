@@ -3,13 +3,17 @@ import * as Tone from "tone";
 import Delay from "../pedals/delay/Delay";
 import Chorus from "../pedals/chorus/Chorus";
 import Distortion from "../pedals/distortion/Distortion";
-import APIHandler from "../../modules/APIHandler"
+import APIHandler from "../../modules/APIHandler";
 
 const Pedalboard = props => {
   const sourceInput = new Tone.UserMedia([0]);
   const [selectedPedal, setSelectedPedal] = useState("");
   const [pedals, setPedals] = useState([]);
   const [pedalSettings, setPedalSettings] = useState([]);
+  const [presetToSave, setPreset] = useState({
+    name: "",
+    chain: null
+  });
 
   const pedalLabels = {
     Delay: Delay,
@@ -20,18 +24,18 @@ const Pedalboard = props => {
   useEffect(() => {
     if (props.selectedPreset) {
       const UIpedals = props.selectedPreset.chain.map(pedal => {
-        return pedalLabels[pedal.pedalType]
-      })
-      setPedals(UIpedals)
+        return pedalLabels[pedal.pedalType];
+      });
+      setPedals(UIpedals);
     }
-  }, [props.selectedPreset])
+  }, [props.selectedPreset]);
 
-  const getPedalSettings = (index) => {
+  const getPedalSettings = index => {
     if (props.selectedPreset) {
-      return props.selectedPreset.chain[index]
-    } 
-      return {}
-  }
+      return props.selectedPreset.chain[index];
+    }
+    return {};
+  };
 
   const addPedalToChain = () => {
     if (selectedPedal) {
@@ -43,16 +47,17 @@ const Pedalboard = props => {
     sourceInput.toMaster();
   };
 
-  const saveSettings = array => {
-    APIHandler.post(array)
-    setPedals([])
+  const updateSinglePedalSettings = (newSettings, index) => {
+    const pedalSettingsSnapshot = [...pedalSettings];
+    pedalSettingsSnapshot[index] = newSettings;
+    setPedalSettings(pedalSettingsSnapshot);
+    setPreset({name: presetToSave.name, chain: pedalSettings})
   };
 
-  const updateSinglePedalSettings = (newSettings, index) => {
-    const pedalSettingsSnapshot = [...pedalSettings]
-    pedalSettingsSnapshot[index] = newSettings
-    setPedalSettings(pedalSettingsSnapshot)
-  }
+  const saveSettings = presetObject => {
+    APIHandler.post(presetObject);
+    setPedals([]);
+  };
 
   return (
     <>
@@ -70,12 +75,12 @@ const Pedalboard = props => {
           isLast={index === pedals.length - 1}
           signal={sourceInput}
           key={index}
-          onUpdate={(ev) => updateSinglePedalSettings(ev, index)}
+          onUpdate={ev => updateSinglePedalSettings(ev, index)}
           settings={getPedalSettings(index)}
         />
       ))}
       <div>
-        <button onClick={() => saveSettings(pedalSettings)}>Save preset</button>
+        <button onClick={() => saveSettings(presetToSave)}>Save preset</button>
       </div>
     </>
   );

@@ -13,5 +13,10 @@ export default {
             },
             body: JSON.stringify(newPreset)
         }).then(resp => resp.json())
+    },
+    delete(id) {
+        return fetch(`${remoteURL}/presets/${id}`, {
+            method: "DELETE"
+        }).then(resp => resp.json())
     }
 }
