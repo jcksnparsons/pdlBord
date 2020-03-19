@@ -51,12 +51,17 @@ const Pedalboard = props => {
     const pedalSettingsSnapshot = [...pedalSettings];
     pedalSettingsSnapshot[index] = newSettings;
     setPedalSettings(pedalSettingsSnapshot);
-    setPreset({name: presetToSave.name, chain: pedalSettings})
+    setPreset({ name: presetToSave.name, chain: pedalSettings });
   };
 
   const saveSettings = presetObject => {
-    APIHandler.post(presetObject);
-    setPedals([]);
+    const presetName = prompt("Name your preset");
+
+    if (presetName !== "") {
+      setPreset({ name: presetName, chain: pedalSettings });
+      APIHandler.post(presetObject);
+      setPedals([]);
+    }
   };
 
   return (
