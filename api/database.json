@@ -1,44 +1,34 @@
 {
-  "users": [],
-  "presets": [
+  "users": [
     {
       "id": 1,
-      "name": "Preset",
+      "email": "jack@jack.com"
+    }
+  ],
+  "presets": [
+    {
+      "userId": 1,
+      "name": "Lead w/ Deep Chorus & Delay",
       "chain": [
         {
-          "pedalType": "Delay",
-          "delayTime": 0.25,
-          "wet": 0.5,
-          "feedback": 0.5
+          "pedalType": "Distortion",
+          "distortion": "1",
+          "oversample": "4x"
         },
         {
           "pedalType": "Chorus",
-          "frequency": 1.5,
-          "delayTime": 3.5,
-          "depth": 0.7
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "Another Preset",
-      "chain": [
-        {
-          "pedalType": "Distortion",
-          "distortion": "0.05",
-          "oversample": "4x"
+          "frequency": "0.29",
+          "delayTime": "4.69",
+          "depth": "0.96"
         },
         {
-          "pedalType": "Distortion",
-          "distortion": "0.48",
-          "oversample": "4x"
-        },
-        {
-          "pedalType": "Distortion",
-          "distortion": "0.9",
-          "oversample": "4x"
+          "pedalType": "Delay",
+          "delayTime": "0.45",
+          "wet": "0.08",
+          "feedback": "0.18"
         }
-      ]
+      ],
+      "id": 3
     }
   ]
 }

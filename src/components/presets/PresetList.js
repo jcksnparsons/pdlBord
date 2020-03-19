@@ -5,11 +5,16 @@ import PresetCard from "./PresetCard";
 const PresetList = props => {
   const [presets, setPresets] = useState([]);
 
-
   const getPresets = () => {
-      return APIHandler.getAll().then(presetsFromAPI => {
-          setPresets(presetsFromAPI);
-      })
+    return APIHandler.getAll().then(presetsFromAPI => {
+      setPresets(presetsFromAPI);
+    });
+  };
+
+  const deletePreset = id => {
+    APIHandler.delete(id).then(() => {
+      APIHandler.getAll().then(setPresets);
+    });
   };
 
   useEffect(() => {
@@ -20,11 +25,17 @@ const PresetList = props => {
     <>
       <div className="container-cards">
         {presets.map(preset => (
-          <PresetCard key={preset.id} preset={preset} loadPreset={props.onSelectPreset} {...props} />
+          <PresetCard
+            key={preset.id}
+            preset={preset}
+            loadPreset={props.onSelectPreset}
+            deletePreset={deletePreset}
+            {...props}
+          />
         ))}
       </div>
     </>
   );
 };
 
-export default PresetList
+export default PresetList;
