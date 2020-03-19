@@ -29,6 +29,30 @@
         }
       ],
       "id": 3
+    },
+    {
+      "name": "tri-chorus",
+      "chain": [
+        {
+          "pedalType": "Chorus",
+          "frequency": 1.5,
+          "delayTime": "9.77",
+          "depth": 0.7
+        },
+        {
+          "pedalType": "Chorus",
+          "frequency": 1.5,
+          "delayTime": 3.5,
+          "depth": 0.7
+        },
+        {
+          "pedalType": "Chorus",
+          "frequency": 1.5,
+          "delayTime": 3.5,
+          "depth": 0.7
+        }
+      ],
+      "id": 4
     }
   ]
 }
