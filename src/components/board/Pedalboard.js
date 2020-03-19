@@ -1,32 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as Tone from "tone";
 import Delay from "../pedals/delay/Delay";
-import Chorus from "../pedals/chorus/Chorus"
-import Distortion from "../pedals/distortion/Distortion"
+import Chorus from "../pedals/chorus/Chorus";
+import Distortion from "../pedals/distortion/Distortion";
+import APIHandler from "../../modules/APIHandler"
 
-const Pedalboard = () => {
-  const sourceInput = new Tone.UserMedia([0])
+const Pedalboard = props => {
+  const sourceInput = new Tone.UserMedia([0]);
   const [selectedPedal, setSelectedPedal] = useState("");
   const [pedals, setPedals] = useState([]);
+  const [pedalSettings, setPedalSettings] = useState([]);
 
   const pedalLabels = {
-      "Delay": Delay,
-      "Chorus": Chorus,
-      "Distortion": Distortion
+    Delay: Delay,
+    Chorus: Chorus,
+    Distortion: Distortion
+  };
+
+  useEffect(() => {
+    if (props.selectedPreset) {
+      const UIpedals = props.selectedPreset.chain.map(pedal => {
+        return pedalLabels[pedal.pedalType]
+      })
+      setPedals(UIpedals)
+    }
+  }, [props.selectedPreset])
+
+  const getPedalSettings = (index) => {
+    if (props.selectedPreset) {
+      return props.selectedPreset.chain[index]
+    } 
+      return {}
   }
 
   const addPedalToChain = () => {
     if (selectedPedal) {
-        setPedals([...pedals, pedalLabels[selectedPedal]])
+      setPedals([...pedals, pedalLabels[selectedPedal]]);
     }
   };
 
   const routeToMaster = () => {
-      sourceInput.toMaster()
-  }
+    sourceInput.toMaster();
+  };
 
   const saveSettings = array => {
-    console.log(array)
+    APIHandler.post(array)
+    setPedals([])
+  };
+
+  const updateSinglePedalSettings = (newSettings, index) => {
+    const pedalSettingsSnapshot = [...pedalSettings]
+    pedalSettingsSnapshot[index] = newSettings
+    setPedalSettings(pedalSettingsSnapshot)
   }
 
   return (
@@ -40,12 +65,20 @@ const Pedalboard = () => {
       </select>
       <button onClick={addPedalToChain}>Add to Chain</button>
       <button onClick={routeToMaster}>Route To Master</button>
-      {pedals.map((Component, index) => <Component isLast={index===pedals.length - 1} signal={sourceInput} key={index}/>)}
+      {pedals.map((Component, index) => (
+        <Component
+          isLast={index === pedals.length - 1}
+          signal={sourceInput}
+          key={index}
+          onUpdate={(ev) => updateSinglePedalSettings(ev, index)}
+          settings={getPedalSettings(index)}
+        />
+      ))}
       <div>
-      <button onClick={() => saveSettings(pedals)}>Save preset</button>
+        <button onClick={() => saveSettings(pedalSettings)}>Save preset</button>
       </div>
     </>
   );
 };
 
-export default Pedalboard
+export default Pedalboard;

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import * as Tone from "tone";
 
-const Chorus = ({ signal, isLast }) => {
+const Chorus = ({ signal, isLast, onUpdate, settings = {} }) => {
   const [chorusParams, setChorusParams] = useState({
-    frequency: 1.5,
-    delayTime: 3.5,
-    depth: 0.7
+    pedalType: "Chorus",
+    frequency: settings.frequency || 1.5,
+    delayTime: settings.delayTime || 3.5,
+    depth: settings.depth || 0.7
   });
 
   const [chorus] = useState(
@@ -26,6 +27,7 @@ const Chorus = ({ signal, isLast }) => {
     chorus.frequency.value = chorusParams.frequency;
     chorus.delayTime = chorusParams.delayTime;
     chorus.depth = chorusParams.depth;
+    onUpdate(chorusParams)
   }, [chorusParams]);
 
   signal.chain(chorus);

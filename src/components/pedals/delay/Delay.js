@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import * as Tone from "tone";
 
-const Delay = ({ signal, isLast }) => {
+const Delay = ({ signal, isLast, onUpdate, settings = {} }) => {
   const [delayParams, setDelayParams] = useState({
-    delayTime: 0.25,
-    wet: 0.5,
-    feedback: 0.5
+    pedalType: "Delay",
+    delayTime: settings.delayTime || 0.25,
+    wet: settings.wet || 0.5,
+    feedback: settings.feedback || 0.5
   });
 
   const [delay] = useState(
@@ -14,21 +15,21 @@ const Delay = ({ signal, isLast }) => {
 
   useEffect(() => {
     if (isLast) {
-        delay.toMaster()
+      delay.toMaster();
     }
-}, [isLast])
+  }, [isLast]);
 
   useEffect(() => {
     delay.delayTime.value = delayParams.delayTime;
     delay.wet.value = delayParams.wet;
     delay.feedback.value = delayParams.feedback;
+    onUpdate(delayParams);
   }, [delayParams]);
 
   signal.chain(delay);
 
   return (
     <>
-
       <h2>Delay</h2>
       <label>
         <input
