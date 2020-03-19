@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import * as Tone from "tone";
 
-const Distortion = ({ signal, isLast }) => {
+const Distortion = ({ signal, isLast, onUpdate, settings }) => {
   const [distortionParams, setDistortionParams] = useState({
-    distortion: 0.4,
-    oversample: "4x"
+    pedalType: "Distortion",
+    distortion: settings.distortion || 0.4,
+    oversample: settings.oversample || "4x"
   });
 
   const [distortion] = useState(
@@ -23,6 +24,7 @@ const Distortion = ({ signal, isLast }) => {
   useEffect(() => {
     distortion.distortion = distortionParams.distortion;
     distortion.oversample = distortionParams.oversample;
+    onUpdate(distortionParams)
   }, [distortionParams]);
 
   signal.chain(distortion);
