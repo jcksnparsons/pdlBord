@@ -7,6 +7,7 @@ const PresetList = props => {
 
   const getPresets = () => {
     return APIHandler.getAll().then(presetsFromAPI => {
+      debugger
       setPresets(presetsFromAPI);
     });
   };

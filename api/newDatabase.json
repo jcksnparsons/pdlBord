@@ -1,0 +1,44 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "jack@jack.com"
+    }
+  ],
+  "presets": [
+    {
+      "userId": 1,
+      "name": "Lead w/ Deep Chorus & Delay",
+      "id": 3
+    }
+  ],
+  "distortionSettings": [
+    {
+      "id": 1,
+      "presetId": 3,
+      "distortion": "1",
+      "oversample": "4x",
+      "order": 0
+    }
+  ],
+  "chorusSettings": [
+    {
+      "id": 1,
+      "presetId": 3,
+      "frequency": "0.29",
+      "delayTime": "4.69",
+      "depth": "0.96",
+      "order": 1
+    }
+  ],
+  "delaySettings": [
+    {
+      "id": 1,
+      "presetId": 3,
+      "delayTime": "0.45",
+      "wet": "0.08",
+      "feedback": "0.18",
+      "order": 2
+    }
+  ]
+}
