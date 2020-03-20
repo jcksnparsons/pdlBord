@@ -7,11 +7,13 @@ import APIHandler from "../../modules/APIHandler";
 
 const Pedalboard = props => {
   const sourceInput = new Tone.UserMedia([0]);
+
   const [selectedPedal, setSelectedPedal] = useState("");
   const [pedals, setPedals] = useState([]);
   const [pedalSettings, setPedalSettings] = useState([]);
   const [presetToSave, setPreset] = useState({
-    name: "",
+    name: null,
+    userId: 1,
     chain: null
   });
 
@@ -51,16 +53,64 @@ const Pedalboard = props => {
     const pedalSettingsSnapshot = [...pedalSettings];
     pedalSettingsSnapshot[index] = newSettings;
     setPedalSettings(pedalSettingsSnapshot);
-    setPreset({ name: presetToSave.name, chain: pedalSettings });
+    setPreset({
+      name: presetToSave.name,
+      userId: presetToSave.userId,
+      chain: pedalSettings
+    });
   };
 
-  const saveSettings = presetObject => {
+  const saveSettings = presetToSave => {
     const presetName = prompt("Name your preset");
 
-    if (presetName !== "") {
-      setPreset({ name: presetName, chain: pedalSettings });
+    if (presetName !== null) {
+      const presetObject = { name: presetName, userId: presetToSave.userId };
+
       APIHandler.post(presetObject);
+
+      const presetChainArray = presetToSave.chain;
+      // 4. Change those settings into objects(distortionSettings, delaySettings, chorusSettings) INCLUDING the spot in which they exist in the array(order) && the id of the preset to which they belong (fetch call to grab that data?)
+      presetChainArray.forEach(presetPedal => {
+        if (presetPedal.pedalType === "Distortion") {
+          const distortionObject = {
+            presetId: null /* I have no idea how to get this info yet */,
+            distortion: presetPedal.distortion,
+            oversample: presetPedal.oversample,
+            order: presetChainArray[presetPedal]
+          };
+        }
+
+        if (presetPedal.pedalType === "Chorus") {
+          const chorusObject = {
+            presetId: null /* Samesies here */,
+            frequency: presetPedal.frequency,
+            delayTime: presetPedal.delayTime,
+            depth: presetPedal.depth,
+            order: presetChainArray[presetPedal]
+          };
+        }
+
+        if (presetPedal.pedalType === "Delay") {
+          const delayObject = {
+            presetId: null /* Do I need to say it again? */,
+            delayTime: presetPedal.delayTime,
+            wet: presetPedal.wet,
+            feedback: presetPedal.feedback,
+            order: presetChainArray[presetPedal]
+          };
+        }
+      });
+      // 5. Save each of those settings objects to each of their respective resources
+      // promise.all()
+
+      /* setPreset({ name: presetName, chain: pedalSettings }); */
+
+      // TODO: Function that will change presetToSave into format that is accepted by new database ("name": string, "userId": num, "distortionSettings": object, "chorusSettings": object, "delaySettings": object)
+
+      //APIHandler.post(presetToSave);
       setPedals([]);
+    } else {
+      alert("Please enter a valid name for your preset");
     }
   };
 
