@@ -10,6 +10,16 @@
       "userId": 1,
       "name": "Lead w/ Deep Chorus & Delay",
       "id": 3
+    },
+    {
+      "name": "test",
+      "userId": 1,
+      "id": 4
+    },
+    {
+      "name": "test",
+      "userId": 1,
+      "id": 5
     }
   ],
   "distortionSettings": [
@@ -19,6 +29,20 @@
       "distortion": "1",
       "oversample": "4x",
       "order": 0
+    },
+    {
+      "presetId": 5,
+      "distortion": "0.39",
+      "oversample": "4x",
+      "order": 0,
+      "id": 2
+    },
+    {
+      "presetId": 5,
+      "distortion": "0.06",
+      "oversample": "4x",
+      "order": 3,
+      "id": 3
     }
   ],
   "chorusSettings": [
@@ -29,6 +53,14 @@
       "delayTime": "4.69",
       "depth": "0.96",
       "order": 1
+    },
+    {
+      "presetId": 5,
+      "frequency": "0.31",
+      "delayTime": 3.5,
+      "depth": "0.92",
+      "order": 1,
+      "id": 2
     }
   ],
   "delaySettings": [
@@ -39,6 +71,22 @@
       "wet": "0.08",
       "feedback": "0.18",
       "order": 2
+    },
+    {
+      "presetId": 5,
+      "delayTime": 0.25,
+      "wet": 0.5,
+      "feedback": 0.5,
+      "order": 2,
+      "id": 2
+    },
+    {
+      "presetId": 5,
+      "delayTime": "0.8",
+      "wet": 0.5,
+      "feedback": "0.62",
+      "order": 4,
+      "id": 3
     }
   ]
 }

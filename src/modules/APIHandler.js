@@ -44,6 +44,33 @@ export default {
             body: JSON.stringify(newPreset)
         }).then(resp => resp.json())
     },
+    postDistortion(distortionObject) {
+        return fetch(`${remoteURL}/distortionSettings` , {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(distortionObject)
+        }).then(resp => resp.json())
+    },
+    postChorus(chorusObject) {
+        return fetch(`${remoteURL}/chorusSettings`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(chorusObject)
+        }).then(resp => resp.json())
+    },
+    postDelay(delayObject) {
+        return fetch(`${remoteURL}/delaySettings`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(delayObject)
+        }).then(resp => resp.json())
+    },
     delete(id) {
         return fetch(`${remoteURL}/presets/${id}`, {
             method: "DELETE"
