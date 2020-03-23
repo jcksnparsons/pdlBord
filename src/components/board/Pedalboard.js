@@ -7,11 +7,13 @@ import APIHandler from "../../modules/APIHandler";
 
 const Pedalboard = props => {
   const sourceInput = new Tone.UserMedia([0]);
+
   const [selectedPedal, setSelectedPedal] = useState("");
   const [pedals, setPedals] = useState([]);
   const [pedalSettings, setPedalSettings] = useState([]);
   const [presetToSave, setPreset] = useState({
-    name: "",
+    name: null,
+    userId: 1,
     chain: null
   });
 
@@ -51,16 +53,65 @@ const Pedalboard = props => {
     const pedalSettingsSnapshot = [...pedalSettings];
     pedalSettingsSnapshot[index] = newSettings;
     setPedalSettings(pedalSettingsSnapshot);
-    setPreset({ name: presetToSave.name, chain: pedalSettings });
+    setPreset({
+      name: presetToSave.name,
+      userId: presetToSave.userId,
+      chain: pedalSettings
+    });
   };
 
-  const saveSettings = presetObject => {
+  const saveSettings = presetToSave => {
     const presetName = prompt("Name your preset");
 
-    if (presetName !== "") {
-      setPreset({ name: presetName, chain: pedalSettings });
-      APIHandler.post(presetObject);
+    if (presetName !== null) {
+      const presetObject = { name: presetName, userId: presetToSave.userId };
+
+      const presetChainArray = presetToSave.chain;
+
+      // TODO: write fetch call that grabs ID from this preset object
+
+      APIHandler.post(presetObject).then(newPreset => {
+        presetChainArray.forEach((presetPedal, index) => {
+          if (presetPedal.pedalType === "Distortion") {
+            const distortionObject = {
+              presetId: newPreset.id,
+              distortion: presetPedal.distortion,
+              oversample: presetPedal.oversample,
+              order: index
+            };
+
+            APIHandler.postDistortion(distortionObject);
+          }
+
+          if (presetPedal.pedalType === "Chorus") {
+            const chorusObject = {
+              presetId: newPreset.id,
+              frequency: presetPedal.frequency,
+              delayTime: presetPedal.delayTime,
+              depth: presetPedal.depth,
+              order: index
+            };
+
+            APIHandler.postChorus(chorusObject);
+          }
+
+          if (presetPedal.pedalType === "Delay") {
+            const delayObject = {
+              presetId: newPreset.id,
+              delayTime: presetPedal.delayTime,
+              wet: presetPedal.wet,
+              feedback: presetPedal.feedback,
+              order: index
+            };
+
+            APIHandler.postDelay(delayObject);
+          }
+        });
+      });
+
       setPedals([]);
+    } else {
+      alert("Please enter a valid name for your preset");
     }
   };
 

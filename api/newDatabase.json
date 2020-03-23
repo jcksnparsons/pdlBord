@@ -1,0 +1,92 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "jack@jack.com"
+    }
+  ],
+  "presets": [
+    {
+      "userId": 1,
+      "name": "Lead w/ Deep Chorus & Delay",
+      "id": 3
+    },
+    {
+      "name": "test",
+      "userId": 1,
+      "id": 4
+    },
+    {
+      "name": "test",
+      "userId": 1,
+      "id": 5
+    }
+  ],
+  "distortionSettings": [
+    {
+      "id": 1,
+      "presetId": 3,
+      "distortion": "1",
+      "oversample": "4x",
+      "order": 0
+    },
+    {
+      "presetId": 5,
+      "distortion": "0.39",
+      "oversample": "4x",
+      "order": 0,
+      "id": 2
+    },
+    {
+      "presetId": 5,
+      "distortion": "0.06",
+      "oversample": "4x",
+      "order": 3,
+      "id": 3
+    }
+  ],
+  "chorusSettings": [
+    {
+      "id": 1,
+      "presetId": 3,
+      "frequency": "0.29",
+      "delayTime": "4.69",
+      "depth": "0.96",
+      "order": 1
+    },
+    {
+      "presetId": 5,
+      "frequency": "0.31",
+      "delayTime": 3.5,
+      "depth": "0.92",
+      "order": 1,
+      "id": 2
+    }
+  ],
+  "delaySettings": [
+    {
+      "id": 1,
+      "presetId": 3,
+      "delayTime": "0.45",
+      "wet": "0.08",
+      "feedback": "0.18",
+      "order": 2
+    },
+    {
+      "presetId": 5,
+      "delayTime": 0.25,
+      "wet": 0.5,
+      "feedback": 0.5,
+      "order": 2,
+      "id": 2
+    },
+    {
+      "presetId": 5,
+      "delayTime": "0.8",
+      "wet": 0.5,
+      "feedback": "0.62",
+      "order": 4,
+      "id": 3
+    }
+  ]
+}
