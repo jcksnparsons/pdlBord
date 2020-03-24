@@ -68,8 +68,6 @@ const Pedalboard = props => {
 
       const presetChainArray = presetToSave.chain;
 
-      // TODO: write fetch call that grabs ID from this preset object
-
       APIHandler.post(presetObject).then(newPreset => {
         presetChainArray.forEach((presetPedal, index) => {
           if (presetPedal.pedalType === "Distortion") {
