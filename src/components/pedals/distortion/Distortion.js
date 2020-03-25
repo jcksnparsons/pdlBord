@@ -33,6 +33,7 @@ const Distortion = ({ signal, isLast, onUpdate, settings }) => {
   return (
     <>
       <h2>Distortion</h2>
+      {/* This is where you will find the id of this pedal */}
       <input type="hidden" value={settings.id}></input>
       <label>
         <input
