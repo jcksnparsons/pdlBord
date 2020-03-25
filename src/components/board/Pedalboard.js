@@ -45,10 +45,6 @@ const Pedalboard = props => {
     }
   };
 
-  const routeToMaster = () => {
-    sourceInput.toMaster();
-  };
-
   const updateSinglePedalSettings = (newSettings, index) => {
     const pedalSettingsSnapshot = [...pedalSettings];
     pedalSettingsSnapshot[index] = newSettings;
@@ -60,6 +56,66 @@ const Pedalboard = props => {
     });
   };
 
+  const updateSettings = presetToSave => {
+    const presetName = prompt("Name your updated preset", presetToSave.name);
+
+    if (presetName !== null) {
+      const updatedPresetObject = {
+        name: presetName,
+        userId: presetToSave.userId,
+        id: presetToSave.id
+      };
+
+      const presetChainArray = pedalSettings;
+
+      APIHandler.updatePreset(updatedPresetObject).then(updatedPreset => {
+        presetChainArray.forEach((presetPedal, index) => {
+          if (presetPedal.pedalType === "Distortion") {
+            const distortionObject = {
+              id: presetPedal.id,
+              presetId: updatedPreset.id,
+              distortion: presetPedal.distortion,
+              oversample: presetPedal.oversample,
+              order: index
+            };
+
+            APIHandler.updateDistortion(distortionObject);
+          }
+
+          if (presetPedal.pedalType === "Chorus") {
+            const chorusObject = {
+              id: presetPedal.id,
+              presetId: updatedPreset.id,
+              frequency: presetPedal.frequency,
+              delayTime: presetPedal.delayTime,
+              depth: presetPedal.depth,
+              order: index
+            };
+
+            APIHandler.updateChorus(chorusObject);
+          }
+
+          if (presetPedal.pedalType === "Delay") {
+            const delayObject = {
+              id: presetPedal.id,
+              presetId: updatedPreset.id,
+              delayTime: presetPedal.delayTime,
+              wet: presetPedal.wet,
+              feedback: presetPedal.feedback,
+              order: index
+            };
+
+            APIHandler.updateDelay(delayObject);
+          }
+        });
+      });
+
+      setPedals([]);
+    } else {
+      alert("Enter a valid name for your update preset");
+    }
+  };
+
   const saveSettings = presetToSave => {
     const presetName = prompt("Name your preset");
 
@@ -67,8 +123,6 @@ const Pedalboard = props => {
       const presetObject = { name: presetName, userId: presetToSave.userId };
 
       const presetChainArray = presetToSave.chain;
-
-      // TODO: write fetch call that grabs ID from this preset object
 
       APIHandler.post(presetObject).then(newPreset => {
         presetChainArray.forEach((presetPedal, index) => {
@@ -115,8 +169,14 @@ const Pedalboard = props => {
     }
   };
 
+  console.log(pedals)
+
   return (
     <>
+      <input
+        type="hidden"
+        value={props.selectedPreset ? props.selectedPreset.id : ""}
+      ></input>
       <button onClick={() => sourceInput.open()}>Connect to Input</button>
       <select onChange={event => setSelectedPedal(event.target.value)}>
         <option>Select a Pedal</option>
@@ -125,7 +185,7 @@ const Pedalboard = props => {
         <option value="Distortion">Distortion</option>
       </select>
       <button onClick={addPedalToChain}>Add to Chain</button>
-      <button onClick={routeToMaster}>Route To Master</button>
+      {props.selectedPreset ? <h2>{props.selectedPreset.name}</h2> : null}
       {pedals.map((Component, index) => (
         <Component
           isLast={index === pedals.length - 1}
@@ -136,7 +196,15 @@ const Pedalboard = props => {
         />
       ))}
       <div>
-        <button onClick={() => saveSettings(presetToSave)}>Save preset</button>
+        {props.selectedPreset ? (
+          <button onClick={() => updateSettings(props.selectedPreset)}>
+            Update preset
+          </button>
+        ) : (
+          <button onClick={() => saveSettings(presetToSave)}>
+            Save preset
+          </button>
+        )}
       </div>
     </>
   );

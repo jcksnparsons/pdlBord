@@ -4,6 +4,7 @@ import * as Tone from "tone";
 const Chorus = ({ signal, isLast, onUpdate, settings = {} }) => {
   const [chorusParams, setChorusParams] = useState({
     pedalType: "Chorus",
+    id: settings.id || "",
     frequency: settings.frequency || 1.5,
     delayTime: settings.delayTime || 3.5,
     depth: settings.depth || 0.7
@@ -27,7 +28,7 @@ const Chorus = ({ signal, isLast, onUpdate, settings = {} }) => {
     chorus.frequency.value = chorusParams.frequency;
     chorus.delayTime = chorusParams.delayTime;
     chorus.depth = chorusParams.depth;
-    onUpdate(chorusParams)
+    onUpdate(chorusParams);
   }, [chorusParams]);
 
   signal.chain(chorus);
@@ -35,6 +36,7 @@ const Chorus = ({ signal, isLast, onUpdate, settings = {} }) => {
   return (
     <>
       <h2>Chorus</h2>
+      <input type="hidden" value={settings.id}></input>
       <label>
         <input
           type="range"

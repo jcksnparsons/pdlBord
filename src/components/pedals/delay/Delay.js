@@ -4,6 +4,7 @@ import * as Tone from "tone";
 const Delay = ({ signal, isLast, onUpdate, settings = {} }) => {
   const [delayParams, setDelayParams] = useState({
     pedalType: "Delay",
+    id: settings.id || "",
     delayTime: settings.delayTime || 0.25,
     wet: settings.wet || 0.5,
     feedback: settings.feedback || 0.5
@@ -31,6 +32,7 @@ const Delay = ({ signal, isLast, onUpdate, settings = {} }) => {
   return (
     <>
       <h2>Delay</h2>
+      <input type="hidden" value={settings.id}></input>
       <label>
         <input
           type="range"
