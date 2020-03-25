@@ -4,6 +4,7 @@ import * as Tone from "tone";
 const Distortion = ({ signal, isLast, onUpdate, settings }) => {
   const [distortionParams, setDistortionParams] = useState({
     pedalType: "Distortion",
+    id: settings.id || "",
     distortion: settings.distortion || 0.4,
     oversample: settings.oversample || "4x"
   });
@@ -24,7 +25,7 @@ const Distortion = ({ signal, isLast, onUpdate, settings }) => {
   useEffect(() => {
     distortion.distortion = distortionParams.distortion;
     distortion.oversample = distortionParams.oversample;
-    onUpdate(distortionParams)
+    onUpdate(distortionParams);
   }, [distortionParams]);
 
   signal.chain(distortion);
@@ -32,6 +33,7 @@ const Distortion = ({ signal, isLast, onUpdate, settings }) => {
   return (
     <>
       <h2>Distortion</h2>
+      <input type="hidden" value={settings.id}></input>
       <label>
         <input
           type="range"
