@@ -39,6 +39,15 @@ export default {
   getUser() {
     return fetch(`${remoteURL}/users`).then(resp => resp.json());
   },
+  postUser(newUser) {
+    return fetch(`${remoteURL}/users`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newUser)
+    }).then(resp => resp.json());
+  },
   post(newPreset) {
     return fetch(`${remoteURL}/presets`, {
       method: "POST",

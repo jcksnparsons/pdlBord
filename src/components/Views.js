@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Pedalboard from "./board/Pedalboard";
 import PresetList from "./presets/PresetList";
 import Login from "./login/Login";
+import NewUserForm from "./login/AddNewUser";
 
 const Views = props => {
   const [selectedPreset, setSelectedPreset] = useState(null);
@@ -23,6 +24,13 @@ const Views = props => {
         path="/login"
         render={props => {
           return <Login setAsUser={setAsUser} {...props} />;
+        }}
+      />
+      <Route
+        exact
+        path="/newuser"
+        render={props => {
+          return <NewUserForm setAsUser={setAsUser} {...props} />;
         }}
       />
       <Route
