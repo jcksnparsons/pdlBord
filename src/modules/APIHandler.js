@@ -36,6 +36,9 @@ export default {
         });
       });
   },
+  getUser() {
+    return fetch(`${remoteURL}/users`).then(resp => resp.json());
+  },
   post(newPreset) {
     return fetch(`${remoteURL}/presets`, {
       method: "POST",

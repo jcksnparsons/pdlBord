@@ -13,7 +13,7 @@ const Pedalboard = props => {
   const [pedalSettings, setPedalSettings] = useState([]);
   const [presetToSave, setPreset] = useState({
     name: null,
-    userId: 1,
+    userId: parseInt(sessionStorage.getItem("userCredentials")),
     chain: null
   });
 
@@ -68,7 +68,7 @@ const Pedalboard = props => {
 
       const presetChainArray = pedalSettings;
 
-      APIHandler.updatePreset(updatedPresetObject).then(updatedPreset => {
+      await APIHandler.updatePreset(updatedPresetObject).then(updatedPreset => {
         presetChainArray.forEach((presetPedal, index) => {
           const distorionPromise = () => {
             if (presetPedal.pedalType === "Distortion") {
