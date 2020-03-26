@@ -3,6 +3,11 @@ import { slide as Menu } from "react-burger-menu";
 import "./Sidebar.css";
 
 const SideBar = props => {
+  const manageLogout = () => {
+    props.clearAsUser();
+    props.history.push("/login");
+  };
+
   return (
     <>
       <Menu>
@@ -12,9 +17,11 @@ const SideBar = props => {
         <a className="menu-item" href="/presets">
           Presets
         </a>
-        <a className="menu-item" href="/login">
-          Logout
-        </a>
+        {props.currentUser ? (
+          <a className="menu-item" href="/login" onClick={() => manageLogout()}>
+            Logout
+          </a>
+        ) : null}
       </Menu>
     </>
   );

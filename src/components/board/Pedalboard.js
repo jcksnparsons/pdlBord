@@ -13,7 +13,7 @@ const Pedalboard = props => {
   const [pedalSettings, setPedalSettings] = useState([]);
   const [presetToSave, setPreset] = useState({
     name: null,
-    userId: 1,
+    userId: parseInt(sessionStorage.getItem("userCredentials")),
     chain: null
   });
 

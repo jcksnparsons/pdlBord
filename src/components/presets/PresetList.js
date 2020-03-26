@@ -4,10 +4,12 @@ import PresetCard from "./PresetCard";
 
 const PresetList = props => {
   const [presets, setPresets] = useState([]);
+  const userNow = JSON.parse(sessionStorage.getItem("userCredentials"));
 
   const getPresets = () => {
     return APIHandler.getAll().then(presetsFromAPI => {
-      setPresets(presetsFromAPI);
+      const userPresets = presetsFromAPI.filter(preset => preset.userId === userNow)
+      setPresets(userPresets);
     });
   };
 
