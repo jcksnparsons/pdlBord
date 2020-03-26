@@ -80,7 +80,9 @@ const Pedalboard = props => {
                 order: index
               };
 
-              return APIHandler.updateDistortion(distortionObject).then(resp => resp);
+              return APIHandler.updateDistortion(distortionObject).then(
+                resp => resp
+              );
             }
           };
 
@@ -110,11 +112,17 @@ const Pedalboard = props => {
                 order: index
               };
 
-               return APIHandler.updateDelay(delayObject).then(resp => resp);
+              return APIHandler.updateDelay(delayObject).then(resp => resp);
             }
           };
 
-          Promise.all([distorionPromise(), chorusPromise(), delayPromise()]).then(resp => {console.log(resp)})
+          Promise.all([
+            distorionPromise(),
+            chorusPromise(),
+            delayPromise()
+          ]).then(resp => {
+            console.log(resp);
+          });
         });
       });
 
@@ -143,7 +151,9 @@ const Pedalboard = props => {
                 order: index
               };
 
-              return APIHandler.postDistortion(distortionObject).then(resp => resp);
+              return APIHandler.postDistortion(distortionObject).then(
+                resp => resp
+              );
             }
           };
 
@@ -196,13 +206,18 @@ const Pedalboard = props => {
         value={props.selectedPreset ? props.selectedPreset.id : ""}
       ></input>
       <button onClick={() => sourceInput.open()}>Connect to Input</button>
-      <select onChange={event => setSelectedPedal(event.target.value)}>
-        <option>Select a Pedal</option>
-        <option value="Delay">Delay</option>
-        <option value="Chorus">Chorus</option>
-        <option value="Distortion">Distortion</option>
-      </select>
-      <button onClick={addPedalToChain}>Add to Chain</button>
+      {!props.selectedPreset ? (
+        <select onChange={event => setSelectedPedal(event.target.value)}>
+          <option>Select a Pedal</option>
+          <option value="Delay">Delay</option>
+          <option value="Chorus">Chorus</option>
+          <option value="Distortion">Distortion</option>
+        </select>
+      ) : null}
+      {!props.selectedPreset ? (
+        <button onClick={addPedalToChain}>Add to Chain</button>
+      ) : null}
+
       {props.selectedPreset ? <h2>{props.selectedPreset.name}</h2> : null}
       {pedals.map((Component, index) => (
         <Component

@@ -12,17 +12,17 @@
       "id": 1
     },
     {
-      "name": "Testing 2",
+      "name": "Testing 2 pt. 2",
       "userId": 1,
       "id": 2
     },
     {
-      "name": "another test",
+      "name": "another test test",
       "userId": 1,
       "id": 3
     },
     {
-      "name": "more tests please please work",
+      "name": "testing",
       "userId": 1,
       "id": 4
     }
@@ -43,16 +43,16 @@
       "order": 0
     },
     {
+      "id": 3,
       "presetId": 3,
-      "distortion": "0.57",
+      "distortion": "0.8",
       "oversample": "4x",
-      "order": 0,
-      "id": 3
+      "order": 0
     },
     {
       "id": 4,
       "presetId": 4,
-      "distortion": "0.73",
+      "distortion": "0.6",
       "oversample": "4x",
       "order": 0
     }
@@ -79,26 +79,26 @@
       "presetId": 4,
       "frequency": 1.5,
       "delayTime": 3.5,
-      "depth": "0.23",
+      "depth": "0.49",
       "order": 1
     }
   ],
   "delaySettings": [
     {
+      "id": 1,
       "presetId": 2,
       "delayTime": 0.25,
       "wet": "0.33",
       "feedback": "0.84",
-      "order": 2,
-      "id": 1
+      "order": 2
     },
     {
+      "id": 2,
       "presetId": 3,
-      "delayTime": 0.25,
+      "delayTime": "0.49",
       "wet": "0.58",
       "feedback": "0.35",
-      "order": 1,
-      "id": 2
+      "order": 1
     }
   ]
 }
