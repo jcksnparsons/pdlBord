@@ -15,7 +15,10 @@ const PresetList = props => {
 
   const deletePreset = id => {
     APIHandler.delete(id).then(() => {
-      APIHandler.getAll().then(setPresets);
+      APIHandler.getAll().then(presetsFromAPI => {
+        const userPresets = presetsFromAPI.filter(preset => preset.userId === userNow)
+        setPresets(userPresets)
+      });
     });
   };
 
