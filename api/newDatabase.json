@@ -11,6 +11,10 @@
     {
       "email": "chris@chris.com",
       "id": 3
+    },
+    {
+      "email": "bryan@bryan.com",
+      "id": 4
     }
   ],
   "presets": [
@@ -33,13 +37,23 @@
       "name": "This is my awesome preset pt. 2",
       "userId": 1,
       "id": 5
+    },
+    {
+      "name": "Bryan's sound",
+      "userId": 4,
+      "id": 6
+    },
+    {
+      "name": "Bryan's sound 2",
+      "userId": 4,
+      "id": 7
     }
   ],
   "distortionSettings": [
     {
       "id": 1,
       "presetId": 1,
-      "distortion": "1",
+      "distortion": "0.59",
       "oversample": "4x",
       "order": 0
     },
@@ -70,14 +84,28 @@
       "distortion": "0.29",
       "oversample": "4x",
       "order": 1
+    },
+    {
+      "presetId": 6,
+      "distortion": 0.4,
+      "oversample": "4x",
+      "order": 0,
+      "id": 7
+    },
+    {
+      "presetId": 7,
+      "distortion": 0.4,
+      "oversample": "4x",
+      "order": 0,
+      "id": 8
     }
   ],
   "chorusSettings": [
     {
       "id": 1,
       "presetId": 1,
-      "frequency": "5",
-      "delayTime": "20",
+      "frequency": "0.29",
+      "delayTime": "3.89",
       "depth": "1",
       "order": 1
     },
@@ -122,6 +150,14 @@
       "wet": "0.64",
       "feedback": 0.5,
       "order": 3
+    },
+    {
+      "presetId": 7,
+      "delayTime": 0.25,
+      "wet": 0.5,
+      "feedback": 0.5,
+      "order": 1,
+      "id": 5
     }
   ]
 }

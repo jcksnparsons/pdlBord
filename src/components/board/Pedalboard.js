@@ -66,7 +66,7 @@ const Pedalboard = props => {
         id: presetToSave.id
       };
 
-      const presetChainArray = presetToSave.chain;
+      const presetChainArray = pedalSettings;
 
       await APIHandler.updatePreset(updatedPresetObject).then(updatedPreset => {
         presetChainArray.forEach((presetPedal, index) => {
