@@ -27,7 +27,7 @@ const Delay = ({ signal, isLast, onUpdate, settings = {} }) => {
     onUpdate(delayParams);
   }, [delayParams]);
 
-  signal.chain(delay);
+  signal.connect(delay);
 
   return (
     <>

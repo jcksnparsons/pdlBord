@@ -31,7 +31,7 @@ const Chorus = ({ signal, isLast, onUpdate, settings = {} }) => {
     onUpdate(chorusParams);
   }, [chorusParams]);
 
-  signal.chain(chorus);
+  signal.connect(chorus);
 
   return (
     <>

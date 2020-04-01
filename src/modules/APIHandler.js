@@ -3,7 +3,7 @@ const remoteURL = "http://localhost:8088";
 export default {
   getAll() {
     return fetch(
-      `${remoteURL}/presets?_embed=distortionSettings&&_embed=chorusSettings&&_embed=delaySettings`
+      `${remoteURL}/presets?_embed=distortionSettings&&_embed=chorusSettings&&_embed=delaySettings&&_embed=tremoloSettings`
     )
       .then(resp => resp.json())
       .then(presets => {
@@ -15,6 +15,13 @@ export default {
             preset.distortionSettings.forEach(distortion => {
               distortion.pedalType = "Distortion";
               preset.chain[distortion.order] = distortion;
+            });
+          }
+
+          if (preset.tremoloSettings) {
+            preset.tremoloSettings.forEach(tremolo => {
+              tremolo.pedalType = "Tremolo";
+              preset.chain[tremolo.order] = tremolo;
             });
           }
 
@@ -75,6 +82,15 @@ export default {
       body: JSON.stringify(chorusObject)
     }).then(resp => resp.json());
   },
+  postTremolo(tremoloObject) {
+    return fetch(`${remoteURL}/tremoloSettings`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(tremoloObject)
+    }).then(resp => resp.json());
+  },
   postDelay(delayObject) {
     return fetch(`${remoteURL}/delaySettings`, {
       method: "POST",
@@ -109,6 +125,15 @@ export default {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(chorusObject)
+    }).then(resp => resp.json());
+  },
+  updateTremolo(tremoloObject) {
+    return fetch(`${remoteURL}/tremoloSettings/${tremoloObject.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(tremoloObject)
     }).then(resp => resp.json());
   },
   updateDelay(delayObject) {

@@ -3,6 +3,7 @@ import * as Tone from "tone";
 import Delay from "../pedals/delay/Delay";
 import Chorus from "../pedals/chorus/Chorus";
 import Distortion from "../pedals/distortion/Distortion";
+import Tremolo from "../pedals/tremolo/Tremolo";
 import APIHandler from "../../modules/APIHandler";
 
 const Pedalboard = props => {
@@ -20,7 +21,8 @@ const Pedalboard = props => {
   const pedalLabels = {
     Delay: Delay,
     Chorus: Chorus,
-    Distortion: Distortion
+    Distortion: Distortion,
+    Tremolo: Tremolo
   };
 
   useEffect(() => {
@@ -86,6 +88,20 @@ const Pedalboard = props => {
             }
           };
 
+          const tremoloPromise = () => {
+            if (presetPedal.pedalType === "Tremolo") {
+              const tremoloObject = {
+                id: presetPedal.id,
+                presetId: updatedPreset.id,
+                frequency: presetPedal.frequency,
+                depth: presetPedal.depth,
+                order: index
+              };
+
+              return APIHandler.updateTremolo(tremoloObject).then(resp => resp);
+            }
+          };
+
           const chorusPromise = () => {
             if (presetPedal.pedalType === "Chorus") {
               const chorusObject = {
@@ -119,6 +135,7 @@ const Pedalboard = props => {
           Promise.all([
             distorionPromise(),
             chorusPromise(),
+            tremoloPromise(),
             delayPromise()
           ]).then(resp => {
             console.log(resp);
@@ -157,6 +174,19 @@ const Pedalboard = props => {
             }
           };
 
+          const tremoloPromise = () => {
+            if (presetPedal.pedalType === "Tremolo") {
+              const tremoloObject = {
+                presetId: newPreset.id,
+                frequency: presetPedal.frequency,
+                depth: presetPedal.depth,
+                order: index
+              };
+
+              return APIHandler.postTremolo(tremoloObject).then(resp => resp);
+            }
+          };
+
           const chorusPromise = () => {
             if (presetPedal.pedalType === "Chorus") {
               const chorusObject = {
@@ -188,6 +218,7 @@ const Pedalboard = props => {
           Promise.all([
             distortionPromise(),
             chorusPromise(),
+            tremoloPromise(),
             delayPromise()
           ]).then(resp => console.log(resp));
         });
@@ -206,18 +237,19 @@ const Pedalboard = props => {
         value={props.selectedPreset ? props.selectedPreset.id : ""}
       ></input>
       <button onClick={() => sourceInput.open()}>Connect to Input</button>
+      
       {!props.selectedPreset ? (
         <select onChange={event => setSelectedPedal(event.target.value)}>
           <option>Select a Pedal</option>
           <option value="Delay">Delay</option>
           <option value="Chorus">Chorus</option>
           <option value="Distortion">Distortion</option>
+          <option value="Tremolo">Tremolo</option>
         </select>
       ) : null}
       {!props.selectedPreset ? (
         <button onClick={addPedalToChain}>Add to Chain</button>
       ) : null}
-
       {props.selectedPreset ? <h2>{props.selectedPreset.name}</h2> : null}
       {pedals.map((Component, index) => (
         <Component

@@ -22,6 +22,11 @@
       "name": "Walking On The Moon 3",
       "userId": 1,
       "id": 1
+    },
+    {
+      "name": "test",
+      "userId": 1,
+      "id": 2
     }
   ],
   "distortionSettings": [
@@ -31,6 +36,13 @@
       "distortion": "0.59",
       "oversample": "4x",
       "order": 0
+    },
+    {
+      "presetId": 2,
+      "distortion": 0.4,
+      "oversample": "4x",
+      "order": 0,
+      "id": 2
     }
   ],
   "chorusSettings": [
@@ -41,7 +53,25 @@
       "delayTime": "3.89",
       "depth": "1",
       "order": 1
+    },
+    {
+      "presetId": 2,
+      "frequency": 1.5,
+      "delayTime": 3.5,
+      "depth": 0.7,
+      "order": 1,
+      "id": 2
     }
   ],
-  "delaySettings": []
+  "delaySettings": [
+    {
+      "presetId": 2,
+      "delayTime": 0.25,
+      "wet": 0.5,
+      "feedback": 0.5,
+      "order": 2,
+      "id": 1
+    }
+  ],
+  "tremoloSettings": []
 }
