@@ -27,6 +27,11 @@
       "name": "test",
       "userId": 1,
       "id": 2
+    },
+    {
+      "name": "trem test 2",
+      "userId": 1,
+      "id": 3
     }
   ],
   "distortionSettings": [
@@ -73,5 +78,13 @@
       "id": 1
     }
   ],
-  "tremoloSettings": []
+  "tremoloSettings": [
+    {
+      "id": 1,
+      "presetId": 3,
+      "frequency": "560.4",
+      "depth": "0.91",
+      "order": 0
+    }
+  ]
 }
