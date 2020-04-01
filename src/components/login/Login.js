@@ -27,6 +27,10 @@ const Login = props => {
     });
   };
 
+  const newUserRedirect = () => {
+    props.history.push("/newuser")
+  }
+
   return (
     <>
       <form onSubmit={handleLogin}>
@@ -44,6 +48,7 @@ const Login = props => {
             />
           </div>
           <button type="submit">Log in</button>
+          <button onClick={newUserRedirect}>Add a new user</button>
         </fieldset>
       </form>
     </>

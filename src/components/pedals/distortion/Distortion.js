@@ -28,7 +28,7 @@ const Distortion = ({ signal, isLast, onUpdate, settings }) => {
     onUpdate(distortionParams);
   }, [distortionParams]);
 
-  signal.chain(distortion);
+  signal.connect(distortion);
 
   return (
     <>

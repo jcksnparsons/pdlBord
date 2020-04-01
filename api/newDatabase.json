@@ -3,6 +3,18 @@
     {
       "id": 1,
       "email": "jack@jack.com"
+    },
+    {
+      "id": 2,
+      "email": "andy@andy.com"
+    },
+    {
+      "email": "chris@chris.com",
+      "id": 3
+    },
+    {
+      "email": "bryan@bryan.com",
+      "id": 4
     }
   ],
   "presets": [
@@ -12,57 +24,38 @@
       "id": 1
     },
     {
-      "name": "Testing 2 pt. 2",
+      "name": "test",
       "userId": 1,
       "id": 2
     },
     {
-      "name": "another test test",
+      "name": "trem test 2",
       "userId": 1,
       "id": 3
-    },
-    {
-      "name": "testing",
-      "userId": 1,
-      "id": 4
     }
   ],
   "distortionSettings": [
     {
       "id": 1,
       "presetId": 1,
-      "distortion": "1",
+      "distortion": "0.59",
       "oversample": "4x",
       "order": 0
     },
     {
-      "id": 2,
       "presetId": 2,
-      "distortion": "0.47",
+      "distortion": 0.4,
       "oversample": "4x",
-      "order": 0
-    },
-    {
-      "id": 3,
-      "presetId": 3,
-      "distortion": "0.8",
-      "oversample": "4x",
-      "order": 0
-    },
-    {
-      "id": 4,
-      "presetId": 4,
-      "distortion": "0.6",
-      "oversample": "4x",
-      "order": 0
+      "order": 0,
+      "id": 2
     }
   ],
   "chorusSettings": [
     {
       "id": 1,
       "presetId": 1,
-      "frequency": "5",
-      "delayTime": "20",
+      "frequency": "0.29",
+      "delayTime": "3.89",
       "depth": "1",
       "order": 1
     },
@@ -73,32 +66,25 @@
       "depth": 0.7,
       "order": 1,
       "id": 2
-    },
-    {
-      "id": 3,
-      "presetId": 4,
-      "frequency": 1.5,
-      "delayTime": 3.5,
-      "depth": "0.49",
-      "order": 1
     }
   ],
   "delaySettings": [
     {
-      "id": 1,
       "presetId": 2,
       "delayTime": 0.25,
-      "wet": "0.33",
-      "feedback": "0.84",
-      "order": 2
-    },
+      "wet": 0.5,
+      "feedback": 0.5,
+      "order": 2,
+      "id": 1
+    }
+  ],
+  "tremoloSettings": [
     {
-      "id": 2,
+      "id": 1,
       "presetId": 3,
-      "delayTime": "0.49",
-      "wet": "0.58",
-      "feedback": "0.35",
-      "order": 1
+      "frequency": "560.4",
+      "depth": "0.91",
+      "order": 0
     }
   ]
 }
