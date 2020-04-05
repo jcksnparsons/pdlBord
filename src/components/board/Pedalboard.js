@@ -4,6 +4,7 @@ import Delay from "../pedals/delay/Delay";
 import Chorus from "../pedals/chorus/Chorus";
 import Distortion from "../pedals/distortion/Distortion";
 import Tremolo from "../pedals/tremolo/Tremolo";
+import Reverb from "../pedals/reverb/Reverb";
 import APIHandler from "../../modules/APIHandler";
 
 const Pedalboard = props => {
@@ -22,7 +23,8 @@ const Pedalboard = props => {
     Delay: Delay,
     Chorus: Chorus,
     Distortion: Distortion,
-    Tremolo: Tremolo
+    Tremolo: Tremolo,
+    Reverb: Reverb
   };
 
   useEffect(() => {
@@ -132,11 +134,26 @@ const Pedalboard = props => {
             }
           };
 
+          const reverbPromise = () => {
+            if (presetPedal.pedalType === "Reverb") {
+              const reverbObject = {
+                id: presetPedal.id,
+                presetId: updatedPreset.id,
+                roomSize: presetPedal.roomSize,
+                dampening: presetPedal.dampening,
+                order: index
+              };
+
+              return APIHandler.updateReverb(reverbObject).then(resp => resp);
+            }
+          }
+
           Promise.all([
             distorionPromise(),
             chorusPromise(),
             tremoloPromise(),
-            delayPromise()
+            delayPromise(),
+            reverbPromise()
           ]).then(resp => {
             console.log(resp);
           });
@@ -215,11 +232,25 @@ const Pedalboard = props => {
             }
           };
 
+          const reverbPromise = () => {
+            if (presetPedal.pedalType === "Reverb") {
+              const reverbObject = {
+                presetId: newPreset.id,
+                roomSize: presetPedal.roomSize,
+                dampening: presetPedal.dampening,
+                order: index
+              };
+
+              return APIHandler.postReverb(reverbObject).then(resp => resp);
+            }
+          }
+
           Promise.all([
             distortionPromise(),
             chorusPromise(),
             tremoloPromise(),
-            delayPromise()
+            delayPromise(),
+            reverbPromise()
           ]).then(resp => console.log(resp));
         });
       });
@@ -245,6 +276,7 @@ const Pedalboard = props => {
           <option value="Chorus">Chorus</option>
           <option value="Distortion">Distortion</option>
           <option value="Tremolo">Tremolo</option>
+          <option value="Reverb">Reverb</option>
         </select>
       ) : null}
       {!props.selectedPreset ? (

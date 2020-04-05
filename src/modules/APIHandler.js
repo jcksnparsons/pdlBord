@@ -3,7 +3,7 @@ const remoteURL = "http://localhost:8088";
 export default {
   getAll() {
     return fetch(
-      `${remoteURL}/presets?_embed=distortionSettings&&_embed=chorusSettings&&_embed=delaySettings&&_embed=tremoloSettings`
+      `${remoteURL}/presets?_embed=distortionSettings&&_embed=chorusSettings&&_embed=delaySettings&&_embed=tremoloSettings&&_embed=reverbSettings`
     )
       .then(resp => resp.json())
       .then(presets => {
@@ -36,6 +36,13 @@ export default {
             preset.delaySettings.forEach(delay => {
               delay.pedalType = "Delay";
               preset.chain[delay.order] = delay;
+            });
+          }
+
+          if (preset.reverbSettings) {
+            preset.reverbSettings.forEach(reverb => {
+              reverb.pedalType = "Reverb";
+              preset.chain[reverb.order] = reverb;
             });
           }
 
@@ -100,6 +107,15 @@ export default {
       body: JSON.stringify(delayObject)
     }).then(resp => resp.json());
   },
+  postReverb(reverbObject) {
+    return fetch(`${remoteURL}/reverbSettings`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(reverbObject)
+    }).then(resp => resp.json());
+  },
   updatePreset(preset) {
     return fetch(`${remoteURL}/presets/${preset.id}`, {
       method: "PUT",
@@ -143,6 +159,15 @@ export default {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(delayObject)
+    }).then(resp => resp.json());
+  },
+  updateReverb(reverbObject) {
+    return fetch(`${remoteURL}/reverbSettings/${reverbObject.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(reverbObject)
     }).then(resp => resp.json());
   },
   delete(id) {
