@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as Tone from "tone";
+import "./Chorus.css";
 
 const Chorus = ({ signal, isLast, onUpdate, settings = {} }) => {
   const [chorusParams, setChorusParams] = useState({
@@ -35,48 +36,56 @@ const Chorus = ({ signal, isLast, onUpdate, settings = {} }) => {
 
   return (
     <>
-      <h2>Chorus</h2>
-      {/* This is where you will find the id of this pedal */}
-      <input type="hidden" value={settings.id}></input>
-      <label>
-        <input
-          type="range"
-          step=".01"
-          min="0"
-          max="5"
-          value={chorusParams.frequency}
-          onChange={event =>
-            setChorusParams({ ...chorusParams, frequency: event.target.value })
-          }
-        />
-        Frequency
-      </label>
-      <label>
-        <input
-          type="range"
-          step=".01"
-          min="2"
-          max="20"
-          value={chorusParams.delayTime}
-          onChange={event =>
-            setChorusParams({ ...chorusParams, delayTime: event.target.value })
-          }
-        />
-        Delay Time
-      </label>
-      <label>
-        <input
-          type="range"
-          step=".01"
-          min="0"
-          max="1"
-          value={chorusParams.depth}
-          onChange={event =>
-            setChorusParams({ ...chorusParams, depth: event.target.value })
-          }
-        />
-        Depth
-      </label>
+      <div class="chorusPedal">
+        {/* This is where you will find the id of this pedal */}
+        <input type="hidden" value={settings.id}></input>
+        <label>
+          <input
+            type="range"
+            step=".01"
+            min="0"
+            max="5"
+            value={chorusParams.frequency}
+            onChange={event =>
+              setChorusParams({
+                ...chorusParams,
+                frequency: event.target.value
+              })
+            }
+          />
+          <div>Frequency</div>
+        </label>
+        <label>
+          <input
+            type="range"
+            step=".01"
+            min="2"
+            max="20"
+            value={chorusParams.delayTime}
+            onChange={event =>
+              setChorusParams({
+                ...chorusParams,
+                delayTime: event.target.value
+              })
+            }
+          />
+          <div>Delay Time</div>
+        </label>
+        <label>
+          <input
+            type="range"
+            step=".01"
+            min="0"
+            max="1"
+            value={chorusParams.depth}
+            onChange={event =>
+              setChorusParams({ ...chorusParams, depth: event.target.value })
+            }
+          />
+          <div>Depth</div>
+        </label>
+        <h2>Chorus</h2>
+      </div>
     </>
   );
 };
