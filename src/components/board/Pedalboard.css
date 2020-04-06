@@ -1,0 +1,11 @@
+.pedalboard {
+    background: black;
+    width: 94%;
+    height: auto;
+    min-height: 275px;
+    padding: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 15px solid burlywood
+}

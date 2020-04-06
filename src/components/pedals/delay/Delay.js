@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as Tone from "tone";
+import "./Delay.css";
 
 const Delay = ({ signal, isLast, onUpdate, settings = {} }) => {
   const [delayParams, setDelayParams] = useState({
@@ -31,48 +32,50 @@ const Delay = ({ signal, isLast, onUpdate, settings = {} }) => {
 
   return (
     <>
-      <h2>Delay</h2>
-      {/* This is where you will find the id of this pedal */}
-      <input type="hidden" value={settings.id}></input>
-      <label>
-        <input
-          type="range"
-          step=".01"
-          min="0"
-          max="1"
-          value={delayParams.delayTime}
-          onChange={event =>
-            setDelayParams({ ...delayParams, delayTime: event.target.value })
-          }
-        />
-        Delay Time
-      </label>
-      <label>
-        <input
-          type="range"
-          step=".01"
-          min="0"
-          max="1"
-          value={delayParams.wet}
-          onChange={event =>
-            setDelayParams({ ...delayParams, wet: event.target.value })
-          }
-        />
-        Mix
-      </label>
-      <label>
-        <input
-          type="range"
-          step=".01"
-          min="0"
-          max="1"
-          value={delayParams.feedback}
-          onChange={event =>
-            setDelayParams({ ...delayParams, feedback: event.target.value })
-          }
-        />
-        Feedback
-      </label>
+      <div class="delayPedal">
+        {/* This is where you will find the id of this pedal */}
+        <input type="hidden" value={settings.id}></input>
+        <label>
+          <input
+            type="range"
+            step=".01"
+            min="0"
+            max="1"
+            value={delayParams.delayTime}
+            onChange={event =>
+              setDelayParams({ ...delayParams, delayTime: event.target.value })
+            }
+          />
+          <div>Delay Time</div>
+        </label>
+        <label>
+          <input
+            type="range"
+            step=".01"
+            min="0"
+            max="1"
+            value={delayParams.wet}
+            onChange={event =>
+              setDelayParams({ ...delayParams, wet: event.target.value })
+            }
+          />
+          <div>Mix</div>
+        </label>
+        <label>
+          <input
+            type="range"
+            step=".01"
+            min="0"
+            max="1"
+            value={delayParams.feedback}
+            onChange={event =>
+              setDelayParams({ ...delayParams, feedback: event.target.value })
+            }
+          />
+          <div>Feedback</div>
+        </label>
+        <h2>Delay</h2>
+      </div>
     </>
   );
 };
