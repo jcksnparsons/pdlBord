@@ -6,6 +6,7 @@ import Distortion from "../pedals/distortion/Distortion";
 import Tremolo from "../pedals/tremolo/Tremolo";
 import Reverb from "../pedals/reverb/Reverb";
 import APIHandler from "../../modules/APIHandler";
+import './Pedalboard.css'
 
 const Pedalboard = props => {
   const sourceInput = new Tone.UserMedia([0]);
@@ -283,6 +284,7 @@ const Pedalboard = props => {
         <button onClick={addPedalToChain}>Add to Chain</button>
       ) : null}
       {props.selectedPreset ? <h2>{props.selectedPreset.name}</h2> : null}
+      <div class="pedalboard">
       {pedals.map((Component, index) => (
         <Component
           isLast={index === pedals.length - 1}
@@ -292,6 +294,7 @@ const Pedalboard = props => {
           settings={getPedalSettings(index)}
         />
       ))}
+      </div>
       <div>
         {props.selectedPreset ? (
           <button onClick={() => updateSettings(props.selectedPreset)}>
